@@ -3,6 +3,6 @@
 
 This repo holds sample code for a number of classic data structures implemented in Ruby.
 
-Resources: http://en.wikipedia.org/wiki/Linked_list
+Resources: http://en.wikipedia.org/wiki/Linked_list, http://www.rubyinside.com/a-minitestspec-tutorial-elegant-spec-style-testing-that-comes-with-ruby-5354.html, StackOverflow, Google
 
-Collaborators:
+Collaborators: Steve, Marco, Erik
