@@ -1,24 +1,53 @@
-feature "insert(node)" do
-  scenario "insert a node into the head of the list" do
+require "minitest/spec"
+require "minitest/autorun"
+require "linked_list"
+
+describe "insert(node)" do
+  it "inserts a node into the head of the list" do
+    hunt = TreasureHunt.new("A crapton of gold.")
+    waypoint = hunt.add_waypoint("map")
+    hunt.next_waypoint.must_be_same_as(waypoint)
   end
 end
 
-feature "size()" do
-  scenario "return the length of the list" do
+describe "size()" do
+  it "returns the length of the list" do
+    hunt = TreasureHunt.new("Some awesome weapons.")
+    hunt.add_waypoint("map")
+    hunt.add_waypoint("hint")
+    hunt.add_waypoint("pointer")
+    hunt.num_waypoints.must_equal(4)
   end
 end
 
-feature "search(value)" do
-  scenario "return the node containing 'value' in the list if present, else return nil" do
+describe "search(value)" do
+  it "returns the node containing 'value' in the list if present, else return nil" do
+    hunt = TreasureHunt.new("Cool stuff.")
+    map_loc = hunt.add_waypoint("map")
+    hint_loc = hunt.add_waypoint("hint")
+    key_loc = hunt.add_waypoint("key")
+    hunt.search("map").must_be_same_as(map_loc)
   end
 end
 
-feature "remove(node)" do
-  scenario "remove the given node from the list, at any location, and return the object's value. If it isn't found, return nil" do
+describe "remove(node)" do
+  it "remove the given node from the list, at any location, and return the object's value. If it isn't found, return nil" do
+    hunt = TreasureHunt.new("Things.")
+    map_loc = hunt.add_waypoint("map")
+    hint_loc = hunt.add_waypoint("hint")
+    key_loc = hunt.add_waypoint("key")
+    hunt.search("map").must_be_same_as(map_loc)
+    hunt.remove(map_loc)
+    hunt.search("map").must_equal(nil)
   end
 end
 
-feature "to_s()" do
-  scenario "print the list as a CSV string" do
+describe "to_s()" do
+  it "print the list as a CSV string" do
+    hunt = TreasureHunt.new("Things.")
+    map_loc = hunt.add_waypoint("map")
+    hint_loc = hunt.add_waypoint(13)
+    key_loc = hunt.add_waypoint(:key)
+    hunt.to_s().must_equal(":key, 13, 'map', 'Things.'")
   end
 end
