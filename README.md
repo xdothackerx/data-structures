@@ -7,6 +7,8 @@ The first data structure studied is linked lists, including traversal and adding
 
 The second sample models a stack, with push and pop functions. My version mimicks a buffet plate dispenser.
 
+The third example takes the form of a single-file line, which explores the queue data structure.
+
 Resources: http://en.wikipedia.org/wiki/Linked_list, http://www.rubyinside.com/a-minitestspec-tutorial-elegant-spec-style-testing-that-comes-with-ruby-5354.html, StackOverflow, Google
 
 Collaborators: Steve, Marco, Erik, Alex
