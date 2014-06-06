@@ -9,6 +9,6 @@ The second sample models a stack, with push and pop functions. My version mimick
 
 The third example takes the form of a single-file line, which explores the queue data structure.
 
-Resources: http://en.wikipedia.org/wiki/Linked_list, http://www.rubyinside.com/a-minitestspec-tutorial-elegant-spec-style-testing-that-comes-with-ruby-5354.html, StackOverflow, Google
+Resources: http://en.wikipedia.org/wiki/Linked_list, http://www.rubyinside.com/a-minitestspec-tutorial-elegant-spec-style-testing-that-comes-with-ruby-5354.html, StackOverflow, Google, https://www.khanacademy.org/cs/depth-first-traversals-of-binary-trees/934024358(3 types of depth-first searches definitions only)
 
 Collaborators: Steve, Marco, Erik, Alex
