@@ -1,7 +1,7 @@
 require "minitest/spec"
 require "minitest/autorun"
 require "benchmark"
-require "sort"
+require "./lib/sort"
 
 def gen_nums(type)
   if type == "random"
@@ -25,27 +25,51 @@ end
 
 describe "Insertion Sort" do
   it "Sorts an array of random numbers from least to greatest." do
-    input = ins_sort(gen_nums "random")
+    input = Array.ins_sort(gen_nums "random")
     input.must_equal (1..100).to_a
   end
   it "Sorts an array of nearly sorted numbers" do
-    input = ins_sort(gen_nums "nearly-ordered")
+    input = Array.ins_sort(gen_nums "nearly-ordered")
     input.must_equal (1..100).to_a
   end
   it "Sorts an array of reversed sorted numbers" do
-    input = ins_sort(gen_nums "reverse")
+    input = Array.ins_sort(gen_nums "reverse")
     input.must_equal (1..100).to_a
   end
   it "Sorts an array of numbers with few unique values" do
-    input = ins_sort(gen_nums "few unique")
+    input = Array.ins_sort(gen_nums "few unique")
+    input.must_equal gen_nums("few unique").sort
+  end
+end
+
+describe "Merge Sort" do
+  it "Sorts an array of random numbers from least to greatest." do
+    input = Array.merge_sort(gen_nums "random")
+    input.must_equal (1..100).to_a
+  end
+  it "Sorts an array of nearly sorted numbers" do
+    input = Array.merge_sort(gen_nums "nearly-ordered")
+    input.must_equal (1..100).to_a
+  end
+  it "Sorts an array of reversed sorted numbers" do
+    input = Array.merge_sort(gen_nums "reverse")
+    input.must_equal (1..100).to_a
+  end
+  it "Sorts an array of numbers with few unique values" do
+    input = Array.merge_sort(gen_nums "few unique")
     input.must_equal gen_nums("few unique").sort
   end
 end
 
 Minitest.after_run {
-  puts "Nearly-Ordered: #{Benchmark.measure{ins_sort gen_nums("nearly-ordered")}}"
-  puts "Few Unique: #{Benchmark.measure{ins_sort gen_nums("few unique")}}"
-  puts "Random Order: #{Benchmark.measure{ins_sort gen_nums("random")}}"
-  puts "Reverse Order: #{Benchmark.measure{ins_sort gen_nums("reverse")}}"
+  puts "Nearly-Ordered: #{Benchmark.measure{Array.ins_sort gen_nums("nearly-ordered")}}"
+  puts "Few Unique: #{Benchmark.measure{Array.ins_sort gen_nums("few unique")}}"
+  puts "Random Order: #{Benchmark.measure{Array.ins_sort gen_nums("random")}}"
+  puts "Reverse Order: #{Benchmark.measure{Array.ins_sort gen_nums("reverse")}}"
+
+  puts "Nearly-Ordered: #{Benchmark.measure{Array.merge_sort gen_nums("nearly-ordered")}}"
+  puts "Few Unique: #{Benchmark.measure{Array.merge_sort gen_nums("few unique")}}"
+  puts "Random Order: #{Benchmark.measure{Array.merge_sort gen_nums("random")}}"
+  puts "Reverse Order: #{Benchmark.measure{Array.merge_sort gen_nums("reverse")}}"
 
 }
