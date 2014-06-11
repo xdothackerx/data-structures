@@ -3,8 +3,7 @@ class Array
   def self.ins_sort(arr)
     (1..arr.length-1).each do |n|
       insertion_ind = n
-      insertion_val = arr[n]
-      arr.delete_at(insertion_ind)
+      insertion_val = arr.delete_at(insertion_ind)
       while insertion_ind > 0 && insertion_val < arr[insertion_ind-1]
         insertion_ind -= 1
       end
@@ -14,6 +13,7 @@ class Array
   end
 
   def self.merge_sort(arr)
+    return arr if arr.empty?
     arr = arr.combination(1).to_a
     merge = []
     until arr.size == 1
@@ -27,9 +27,11 @@ class Array
             merge << right.shift
           end
         elsif left.size > 0
-          merge << left.shift
+          merge += left
+          left = []
         elsif right.size > 0
-          merge << right.shift
+          merge += right
+          right = []
         end
       end
       arr << merge
