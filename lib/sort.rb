@@ -12,41 +12,12 @@ class Array
     return arr
   end
 
-  # def self.merge_sort(arr)
-  #   return arr if arr.empty?
-  #   arr = arr.combination(1).to_a
-  #   merge = []
-  #   until arr.size == 1
-  #     left = arr.shift
-  #     right = arr.shift
-  #     while left.size > 0 or right.size > 0
-  #       if left.size > 0 and right.size > 0
-  #         if left.first < right.first
-  #           merge << left.shift
-  #         else
-  #           merge << right.shift
-  #         end
-  #       elsif left.size > 0
-  #         merge += left
-  #         left = []
-  #       elsif right.size > 0
-  #         merge += right
-  #         right = []
-  #       end
-  #     end
-  #     arr << merge
-  #     merge = []
-  #   end
-  #   arr.flatten
-  # end
-
-  def self.merge_sort(arr)
-    return arr if arr.empty? || arr.sorted?
-    arr = arr.combination(1).to_a
+  def merge_sort
+    return self if self.size < 2 || self.sorted?
+    arr = self.combination(1).to_a
     merge = []
     until arr.size == 1
-      left = arr.shift
-      right = arr.shift
+      left, right = arr.shift, arr.shift
       until left.size.zero? || right.size.zero?
         if left.first < right.first
           merge << left.shift
@@ -55,14 +26,11 @@ class Array
         end
       end
       if left.size > 0
-        merge += left
-        left = []
+        merge += left.slice!(0..left.size)
       else
-        merge += right
-        right = []
+        merge += right.slice!(0..right.size)
       end
-      arr << merge
-      merge = []
+      arr << merge.slice!(0..merge.size)
     end
     arr.flatten
   end
