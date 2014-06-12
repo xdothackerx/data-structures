@@ -37,7 +37,7 @@ class Array
 
   def quick_sort(left = 0, right = self.size-1)
     if left < right
-      pivot = (left+right)/2
+      pivot = left + (right-left) / 2
       new_pivot = part(left, right, pivot)
       self.quick_sort(left, new_pivot-1)
       self.quick_sort(new_pivot+1, right)
@@ -45,23 +45,44 @@ class Array
     self
   end
 
-  def part(left, right, pivot)
-    pivot_value = self[pivot]
-    self[right], self[pivot] = self[pivot], self[right]
-    store_index = left
-    (left...right).each do |n|
-      if self[n] < pivot_value
-        self[n], self[store_index] = self[store_index], self[n]
-        store_index += 1
+  def radix_sort
+    arr = self
+    pass = 1
+    largest = arr.max_by(&:magnitude)
+    max_digits = (largest == 0) ? 1 : Math.log10(largest.abs) + 1
+    while pass <= max_digits
+      buckets = Array.new(20) {[]}
+      place = 10 ** pass
+      arr.each do |n|
+        bucket_indx = 10 + n.remainder(place)/(place/10)
+        if n < 0
+          bucket_indx = n%place/(place/10)
+        end
+        buckets[bucket_indx] << n
       end
+      pass += 1
+      arr = buckets.flatten
     end
-    self[right], self[store_index] = self[store_index], self[right]
-    store_index
+    return arr
   end
 
-  def sorted?
-    each_cons(2).all? { |a, b| (a <=> b) <= 0 }
-  end
+    def part(left, right, pivot)
+      pivot_value = self[pivot]
+      self[right], self[pivot] = self[pivot], self[right]
+      store_index = left
+      (left...right).each do |n|
+        if self[n] < pivot_value
+          self[n], self[store_index] = self[store_index], self[n]
+          store_index += 1
+        end
+      end
+      self[right], self[store_index] = self[store_index], self[right]
+      store_index
+    end
+
+    def sorted?
+      each_cons(2).all? { |a, b| (a <=> b) <= 0 }
+    end
 
 end
 
