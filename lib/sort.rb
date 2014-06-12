@@ -1,24 +1,23 @@
 class Array
 
-  def self.ins_sort(arr)
-    (1..arr.length-1).each do |n|
+  def ins_sort
+    (1..self.length-1).each do |n|
       insertion_ind = n
-      insertion_val = arr.delete_at(insertion_ind)
-      while insertion_ind > 0 && insertion_val < arr[insertion_ind-1]
+      insertion_val = self.delete_at(insertion_ind)
+      while insertion_ind > 0 && insertion_val < self[insertion_ind-1]
         insertion_ind -= 1
       end
-      arr.insert(insertion_ind, insertion_val)
+      self.insert(insertion_ind, insertion_val)
     end
-    return arr
+    self
   end
 
-  def self.merge_sort(arr)
-    return arr if arr.empty? || arr.sorted?
-    arr = arr.combination(1).to_a
+  def merge_sort
+    return self if self.size < 2 || self.sorted?
+    arr = self.combination(1).to_a
     merge = []
     until arr.size == 1
-      left = arr.shift
-      right = arr.shift
+      left, right = arr.shift, arr.shift
       until left.size.zero? || right.size.zero?
         if left.first < right.first
           merge << left.shift
@@ -27,24 +26,19 @@ class Array
         end
       end
       if left.size > 0
-        merge += left
-        left = []
+        merge += left.slice!(0..left.size)
       else
-        merge += right
-        right = []
+        merge += right.slice!(0..right.size)
       end
-      arr << merge
-      merge = []
+      arr << merge.slice!(0..merge.size)
     end
     arr.flatten
   end
 
   def quick_sort(left = 0, right = self.size-1)
-
     if left < right
-      pivot = rand(left...right)
+      pivot = (left+right)/2
       new_pivot = part(left, right, pivot)
-      # binding.pry
       self.quick_sort(left, new_pivot-1)
       self.quick_sort(new_pivot+1, right)
     end
