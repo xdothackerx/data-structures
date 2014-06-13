@@ -64,14 +64,5 @@ class TreasureHunt
       current_loc = current_loc.leads_to
     end
     return result.chomp(", ")
-
-    # while current_loc !=nil
-    #   item = current_loc.item
-    #   if item.respond_to?(:to_s)
-    #     result += item.to_s + ", "
-    #   end
-    #   current_loc = current_loc.leads_to
-    # end
-    # return result.chomp(", ")
   end
 end
