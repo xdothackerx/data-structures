@@ -8,11 +8,13 @@ class Node
 end
 
 class List
-  attr_accessor :last_node
+  attr_accessor :first_node, :last_node
 
   def add(value)
     current = Node.new(value)
-    if @last_node != nil
+    if @first_node == nil
+      @first_node = current
+    elsif @last_node != nil
       current.prev_node = @last_node
       @last_node.next_node = current
     end
@@ -20,13 +22,13 @@ class List
   end
 
   def search(value)
-    current_loc = @last_node
+    current_loc = @first_node
     result = nil
     while current_loc != nil
       if current_loc.value == value
         result = current_loc
       end
-      current_loc = current_loc.prev_node
+      current_loc = current_loc.next_node
     end
     return result
   end
@@ -37,44 +39,37 @@ class List
   end
 
   def to_s
-    current_loc = @last_node
+    current_loc = @first_node
     result = ""
     while current_loc != nil
       value = current_loc.value
       if value.is_a?(Symbol)
-        result += ":" + value.to_s + " ,"
+        result += ":" + value.to_s + ", "
       elsif value.is_a?(String)
-        result += "'" + value.to_s + "' ,"
+        result += "'" + value.to_s + "', "
       else
-        result += value.to_s + " ,"
+        result += value.to_s + ", "
       end
-      current_loc = current_loc.prev_node
+      current_loc = current_loc.next_node
     end
-    return result.chomp(" ,").reverse
+    return result.chomp(", ")
   end
 
   def deduplicate
-    current_loc = @last_node
-    arr = []
-    while current_loc != nil
-      arr << current_loc.value
-      current_loc = current_loc.prev_node
-    end
     list = List.new
-    arr.uniq.each do |value|
-      list.add(value)
-    end
+    self.to_s.split(", ").map {|n| n.to_i}.uniq.each { |value| list.add(value) }
     list
   end
 
   def dedup
-    current_loc = @last_node
+    current_loc = @first_node
     new_list = List.new
     while current_loc != nil
       if new_list.search(current_loc.value) == nil
         new_list.add(current_loc.value)
       end
+      current_loc = current_loc.next_node
     end
-    list = new_list
+    new_list
   end
 end

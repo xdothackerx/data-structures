@@ -49,27 +49,29 @@ end
 describe "deduplicate()" do
   it "removes nodes with duplicate values from the list" do
     list = List.new
-    rand = 10.times.map { Random.rand(10) }
+    rand = (0..100).collect{ rand(100) }
     values = []
-    2.times { values << rand.flatten }
-    values.flatten.each do |value|
+    2.times { values << rand }
+    values.flatten!
+    values.each do |value|
       list.add(value)
     end
-    list.to_s.must_equal(values.flatten.to_s.reverse.chomp("[").reverse.chomp("]"))
-    list.deduplicate.to_s.must_equal(values.flatten.uniq.to_s.reverse.chomp("[").reverse.chomp("]"))
+    list.to_s.must_equal(values.to_s.reverse.chomp("[").reverse.chomp("]"))
+    list.deduplicate.to_s.must_equal(values.uniq.to_s.reverse.chomp("[").reverse.chomp("]"))
   end
 end
 
 describe "dedup()" do
   it "removes nodes with duplicate values from the list, using no additional data structures" do
     list = List.new
-    rand = 10.times.map { Random.rand(10) }
+    rand = (0..100).collect{ rand(100) }
     values = []
-    2.times { values << rand.flatten }
-    values.flatten.each do |value|
+    2.times { values << rand }
+    values.flatten!
+    values.each do |value|
       list.add(value)
     end
-    list.to_s.must_equal(values.flatten.to_s.reverse.chomp("[").reverse.chomp("]"))
-    list.deduplicate.to_s.must_equal(values.flatten.uniq.to_s.reverse.chomp("[").reverse.chomp("]"))
+    list.to_s.must_equal(values.to_s.reverse.chomp("[").reverse.chomp("]"))
+    list.dedup.to_s.must_equal(values.uniq.to_s.reverse.chomp("[").reverse.chomp("]"))
   end
 end
