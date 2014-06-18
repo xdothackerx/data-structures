@@ -43,13 +43,7 @@ class List
     result = ""
     while current_loc != nil
       value = current_loc.value
-      if value.is_a?(Symbol)
-        result += ":" + value.to_s + ", "
-      elsif value.is_a?(String)
-        result += "'" + value.to_s + "', "
-      else
-        result += value.to_s + ", "
-      end
+      result += value.to_s + ", "
       current_loc = current_loc.next_node
     end
     return result.chomp(", ")
@@ -57,7 +51,7 @@ class List
 
   def deduplicate
     list = List.new
-    self.to_s.split(", ").map {|n| n.to_i}.uniq.each { |value| list.add(value) }
+    to_s.split(", ").uniq.each { |value| list.add(value) }
     list
   end
 
