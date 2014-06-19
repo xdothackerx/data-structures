@@ -35,16 +35,6 @@ class Array
     arr.flatten
   end
 
-  def quick_sort(left = 0, right = self.size-1)
-    if left < right
-      pivot = left + (right-left) / 2
-      new_pivot = part(left, right, pivot)
-      self.quick_sort(left, new_pivot-1)
-      self.quick_sort(new_pivot+1, right)
-    end
-    self
-  end
-
   def radix_sort
     arr = self
     pass = 1
@@ -66,23 +56,33 @@ class Array
     return arr
   end
 
-    def part(left, right, pivot)
-      pivot_value = self[pivot]
-      self[right], self[pivot] = self[pivot], self[right]
-      store_index = left
-      (left...right).each do |n|
-        if self[n] < pivot_value
-          self[n], self[store_index] = self[store_index], self[n]
-          store_index += 1
-        end
-      end
-      self[right], self[store_index] = self[store_index], self[right]
-      store_index
+  def quick_sort(left = 0, right = self.size-1)
+    if left < right
+      pivot = left + (right-left) / 2
+      new_pivot = part(left, right, pivot)
+      self.quick_sort(left, new_pivot-1)
+      self.quick_sort(new_pivot+1, right)
     end
+    self
+  end
 
-    def sorted?
-      each_cons(2).all? { |a, b| (a <=> b) <= 0 }
+  def part(left, right, pivot)
+    pivot_value = self[pivot]
+    self[right], self[pivot] = self[pivot], self[right]
+    store_index = left
+    (left...right).each do |n|
+      if self[n] < pivot_value
+        self[n], self[store_index] = self[store_index], self[n]
+        store_index += 1
+      end
     end
+    self[right], self[store_index] = self[store_index], self[right]
+    store_index
+  end
+
+  def sorted?
+    each_cons(2).all? { |a, b| (a <=> b) <= 0 }
+  end
 
 end
 
