@@ -3,58 +3,65 @@ class BinarySearchTree
 
   def initialize(value)
     @value = value
+    @left = NullTree.new
+    @left.parent = self
+    @right = NullTree.new
+    @right.parent = self
   end
 
   def insert(value)
-    new_tree = BinarySearchTree.new(value)
-    new_tree_val = new_tree.value
-    if new_tree_val < @value
-      if @left.nil?
-        @left = new_tree
-      else
+    if value < @value
         @left.insert(value)
-      end
-    elsif new_tree_val > @value
-      if @right.nil?
-        @right = new_tree
-      else
+    elsif value > @value
         @right.insert(value)
-      end
     else
       raise "That value is already in the tree."
     end
   end
 
-  def contains(value, results = [])
-    if @value == value
-      results << true
+  def contains(value)
+    if value < @value
+      @left.contains(value)
+    elsif value > @value
+      @right.contains(value)
     else
-      results << false
-    end
-    @left.contains(value, results) if @left
-    @right.contains(value, results) if @right
-    if results.include? true
       true
-    else
-      false
     end
   end
 
-  def size(count = [])
-    count << 1
-    @left.size(count) if @left
-    @right.size(count) if @right
-    count.size
+  def size
+    @left.size + @right.size + 1
   end
 
   def depth
-    [@left, @right].collect {|n| n.nil? ? 1 : n.depth+1 }.max
+    1 + [@left.depth, @right.depth].max
   end
 
   def balance
-    @left.nil? ? left_side = 0 : left_side = @left.depth
-    @right.nil? ? right_side = 0 : right_side = @right.depth * -1
-    left_side + right_side
+    0 - @left.depth + @right.depth
+  end
+end
+
+class NullTree
+  attr_accessor :parent
+
+  def contains(value)
+    false
   end
 
+  def insert(value)
+    if value < parent.value
+      @parent.left = BinarySearchTree.new(value)
+    else
+      @parent.right = BinarySearchTree.new(value)
+    end
+  end
+
+  def size
+    0
+  end
+
+  def depth
+    0
+  end
 end
