@@ -23,6 +23,36 @@ describe "Binary search tree" do
   end
 
   it "returns the integer size of the tree, or 0 if the tree is empty" do
-
+    tree = BinarySearchTree.new(3)
+    tree.size.must_equal(1)
+    tree.insert(5)
+    tree.insert(4)
+    tree.insert(2)
+    tree.size.must_equal(4)
   end
+
+  it "returns an integer representing the total number of levels in the tree. if there is one value, the depth should be 1" do
+    tree = BinarySearchTree.new(3)
+    tree.depth.must_equal(1)
+    tree.insert(5)
+    tree.depth.must_equal(2)
+    tree.insert(4)
+    tree.depth.must_equal(3)
+    tree.insert(2)
+    tree.depth.must_equal(3)
+  end
+
+  it "returns an integer to represent how balanced the tree is. Trees which are deeper on the left return a positive,
+  trees which are deeper on the right return negative. 0 is perfectly balanced." do
+    tree = BinarySearchTree.new(3)
+    tree.balance.must_equal(0)
+    tree.insert(5)
+    tree.insert(4)
+    tree.insert(2)
+    tree.balance.must_equal(-1)
+    tree.insert(1)
+    tree.insert(0)
+    tree.balance.must_equal(1)
+  end
+
 end

@@ -40,10 +40,21 @@ class BinarySearchTree
     end
   end
 
-  # def size(count = 1)
-  #   @left.size(count) if @left
-  #   @right.size(count) if @right
-  #   count += 1
-  # end
+  def size(count = [])
+    count << 1
+    @left.size(count) if @left
+    @right.size(count) if @right
+    count.size
+  end
+
+  def depth
+    [@left, @right].collect {|n| n.nil? ? 1 : n.depth+1 }.max
+  end
+
+  def balance
+    @left.nil? ? left_side = 0 : left_side = @left.depth
+    @right.nil? ? right_side = 0 : right_side = @right.depth * -1
+    left_side + right_side
+  end
 
 end
