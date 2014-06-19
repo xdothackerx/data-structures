@@ -53,5 +53,27 @@ describe "Binary search tree" do
     @tree.insert(0)
     @tree.balance.must_equal(1)
   end
+end
 
+describe "Binary Search Tree travsersal" do
+  before do
+    @tree = BinarySearchTree.new(10)
+    numbers = [8, 6, 12, 5, 13, 20, 3, 16, 19, 14, 18, 9, 4, 7, 17, 15, 11, 2, 1]
+    numbers.each do |n|
+      @tree.insert(n)
+    end
+  end
+
+  it "returns the values in the tree using in-order traversal" do
+    @tree.pre_order.must_equal([10, 8, 6, 5, 3, 2, 1, 4, 7, 9, 12, 11, 13, 20, 16, 14, 15, 19, 18, 17])
+  end
+  it "returns the values in the tree using pre-order traversal" do
+    @tree.in_order.must_equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])
+  end
+  it "returns the values in the tree using post_order traversal" do
+    @tree.post_order.must_equal([1, 2, 4, 3, 5, 7, 6, 9, 8, 11, 15, 14, 17, 18, 19, 16, 20, 13, 12, 10])
+  end
+  it "returns the values in the tree using breadth-first traversal" do
+    @tree.breadth_first.must_equal([10, 8, 12, 6, 9, 11, 13, 5, 7, 20, 3, 16, 2, 4, 14, 19, 1, 15, 18, 17])
+  end
 end
