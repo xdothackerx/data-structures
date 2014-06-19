@@ -38,7 +38,7 @@ class BinarySearchTree
   end
 
   def balance
-    0 - @left.depth + @right.depth
+    0 + @left.depth - @right.depth
   end
 end
 
