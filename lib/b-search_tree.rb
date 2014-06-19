@@ -66,9 +66,11 @@ class BinarySearchTree
     queue = [self]
     until queue.empty?
       current = queue.shift
-      result << current.value
-      queue << current.left unless current.left.is_a? NullTree
-      queue << current.right unless current.right.is_a? NullTree
+      unless current.is_a? NullTree
+        result << current.value
+        queue << current.left
+        queue << current.right
+      end
     end
     result
   end
